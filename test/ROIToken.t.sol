@@ -2,34 +2,20 @@
 pragma solidity ^0.8.13;
 
 import "src/ROIToken.sol";
-import "@pwnednomore/contracts/PTest.sol";
+import "@pwnednomore/contracts/templates/UnprotectedOwnership.sol";
 
-contract ROITokenTest is PTest {
-    address owner = address(0x1);
-    address agent;
-
+contract ROITokenTest is UnprotectedOwnershipTest {
+    address OWNER = makeAddr("OWNER");
     ROIToken roi;
 
-    function setUp() public {
-        // vm.createSelectFork("https://bsc-dataseed.binance.org");
-        // vm.createSelectFork("http://127.0.0.1:8545");
+    function deploy() public override {
         vm.createSelectFork("https://rpc.ankr.com/bsc");
 
-        vm.prank(owner);
+        vm.prank(OWNER);
         roi = new ROIToken();
-
-        agent = getAgent();
     }
 
-    function invariantOwnerNotChanged() public {
-        assert(roi.owner() == owner);
-    }
-
-    function testExploit() public {
-        vm.startPrank(agent);
-        roi.transferOwnership(agent);
-        vm.stopPrank();
-
-        invariantOwnerNotChanged();
+    function getOwner() public override returns (address) {
+        return roi.owner();
     }
 }
