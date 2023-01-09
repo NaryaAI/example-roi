@@ -15,7 +15,9 @@ contract ROITokenTest is UnprotectedOwnershipTest {
         roi = new ROIToken();
     }
 
-    function init() public override {}
+    function init() public override {
+        initOwner();
+    }
 
     function getOwner() public view override returns (address) {
         return roi.owner();
