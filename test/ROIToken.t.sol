@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "src/ROIToken.sol";
-import "@pwnednomore/contracts/templates/UnprotectedOwnership.sol";
+import "@pwnednomore/contracts/invariants/UnprotectedOwnershipTest.sol";
 
 contract ROITokenTest is UnprotectedOwnershipTest {
     ROIToken roi;
