@@ -5,17 +5,19 @@ import "src/ROIToken.sol";
 import "@pwnednomore/contracts/templates/UnprotectedOwnership.sol";
 
 contract ROITokenTest is UnprotectedOwnershipTest {
-    address OWNER = makeAddr("OWNER");
     ROIToken roi;
 
     function deploy() public override {
         vm.createSelectFork("https://rpc.ankr.com/bsc");
 
-        vm.prank(OWNER);
+        address owner = makeAddr("OWNER");
+        vm.prank(owner);
         roi = new ROIToken();
     }
 
-    function getOwner() public override returns (address) {
+    function init() public override {}
+
+    function getOwner() public view override returns (address) {
         return roi.owner();
     }
 }
